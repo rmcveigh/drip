@@ -7,22 +7,29 @@
   <script src="drip.min.js"></script>
 </head>
 <body>
-
+  <form action="submit" id="hipchat-info">
+    <input type="text" name="roomId" id="hipchat-room-id" placeholder="Room ID / Name" required>
+    <input type="password" name="authToken" id="hipchat-auth-token" placeholder="User API Token" required>
+    <input type="submit" value="submit" id="key-submit">
+  </form>
   <div id="hipchat-room-12345"></div>
   <script>
     jQuery(document).ready(function($) {
 
-      //place API Tokens Here
-      var roomId  = '12345', //room id or name
-          token   = 'abcdef12345'; //your API Access token
-
-      $('#hipchat-room-12345').drip({
-        room: roomId, //room id or name (default: 12345)
-        authToken: token, //your API Access token (default: abcdef12345)
-        reverse: 'true', //the order you want your messages in (default: true)
-        delay: 60000, // the amount of time (milliseconds) between list refreshes. (default: 60000) If this number is to low you may start to see forbiden responces from the HipChat Server.
-        maxResults: 25 //maximum number of results you want displayed (default: 25)
+      $('#hipchat-info').submit(function(event) {
+        //place API Tokens Here
+        var roomId  = $('#hipchat-room-id').val(); //room id or name
+        var token   = $('#hipchat-auth-token').val(); //your API Access token
+        event.preventDefault();
+        $('#hipchat-room-12345').drip({
+          room: roomId, //room id or name (default: 12345)
+          authToken: token, //your API Access token (default: abcdef12345)
+          reverse: 'true', //the order you want your messages in (default: true)
+          delay: 60000, // the amount of time (milliseconds) between list refreshes. (default: 60000) If this number is to low you may start to see forbiden responces from the HipChat Server.
+          maxResults: 25 //maximum number of results you want displayed (default: 25)
+        });
       });
+
     });
   </script>
 </body>
